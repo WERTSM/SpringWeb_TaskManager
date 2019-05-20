@@ -1,21 +1,17 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Repository;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.exception.RepositoryException;
 
 import java.util.*;
 
+@Repository
 public class ProjectRepository implements IProjectRepository {
 
-    private static final IProjectRepository _instance = new ProjectRepository();
-
-    private static Map<String, ProjectDTO> projectMap = new HashMap<>();
-
-    public static IProjectRepository getInstance() {
-        return _instance;
-    }
+    @NotNull private static Map<String, ProjectDTO> projectMap = new HashMap<>();
 
     @Override
     public void persist(@NotNull final String id, @NotNull final ProjectDTO projectDTO) {

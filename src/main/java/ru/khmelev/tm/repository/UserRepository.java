@@ -1,6 +1,7 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Repository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.exception.RepositoryException;
@@ -10,15 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@Repository
 public class UserRepository implements IUserRepository {
 
-    private static final IUserRepository _instance = new UserRepository();
-
-    private static Map<String, UserDTO> userMap = new HashMap<>();
-
-    public static IUserRepository getInstance() {
-        return _instance;
-    }
+    @NotNull private static Map<String, UserDTO> userMap = new HashMap<>();
 
     @Override
     public void persist(@NotNull String id, @NotNull UserDTO userDTO) {

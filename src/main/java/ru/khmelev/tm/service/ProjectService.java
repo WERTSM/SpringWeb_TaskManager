@@ -1,6 +1,8 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.dto.ProjectDTO;
@@ -9,16 +11,11 @@ import ru.khmelev.tm.repository.ProjectRepository;
 
 import java.util.Collection;
 
+@Service
 public class ProjectService implements IProjectService {
 
-    private static final IProjectService _instance = new ProjectService();
-
-    @NotNull
-    private final IProjectRepository projectRepository = ProjectRepository.getInstance();
-
-    public static IProjectService getInstance() {
-        return _instance;
-    }
+    @Autowired
+    private IProjectRepository projectRepository;
 
     @Override
     public void createProject(@NotNull final String id, @NotNull final ProjectDTO projectDTO) {

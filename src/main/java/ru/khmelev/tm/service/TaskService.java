@@ -1,6 +1,8 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.TaskDTO;
@@ -12,16 +14,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+@Service
 public class TaskService implements ITaskService {
 
-    private static final ITaskService _instance = new TaskService();
-
-    @NotNull
-    private final ITaskRepository taskRepository = TaskRepository.getInstance();
-
-    public static ITaskService getInstance() {
-        return _instance;
-    }
+    @Autowired
+    private ITaskRepository taskRepository;
 
     @Override
     public void createTask(@NotNull final String id, @NotNull final TaskDTO taskDTO) {

@@ -2,6 +2,8 @@ package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
@@ -11,16 +13,11 @@ import ru.khmelev.tm.util.PasswordHashUtil;
 
 import java.util.Collection;
 
+@Service
 public class UserService implements IUserService {
 
-    private static final IUserService _instance = new UserService();
-
-    @NotNull
-    private final IUserRepository userRepository = UserRepository.getInstance();
-
-    public static IUserService getInstance() {
-        return _instance;
-    }
+    @Autowired
+    private IUserRepository userRepository;
 
     @Override
     public void createUser(@NotNull final String id, @NotNull final UserDTO userDTO) {
