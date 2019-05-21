@@ -2,13 +2,12 @@ package ru.khmelev.tm.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.khmelev.tm.api.dto.IdentifiableDTO;
 
 import java.util.Date;
 
 @Getter
 @Setter
-public class SessionDTO implements IdentifiableDTO {
+public class SessionDTO {
 
     private String id;
     private String userId;
