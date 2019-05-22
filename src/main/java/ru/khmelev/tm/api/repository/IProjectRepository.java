@@ -1,21 +1,22 @@
 package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.dto.ProjectDTO;
+import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.entity.Project;
 
 import java.util.Collection;
 
 public interface IProjectRepository {
 
-    void persist(@NotNull String id, @NotNull ProjectDTO projectDTO);
+    void persist(@NotNull final Project project);
 
-    @NotNull ProjectDTO findOne(@NotNull String id, @NotNull String userId);
+    @Nullable Project findOne(@NotNull final String id, @NotNull final String userId);
 
-    @NotNull Collection<ProjectDTO> findAll(@NotNull String userId);
+    @Nullable Collection<Project> findAll(@NotNull final String userId);
 
-    void merge(@NotNull String id, @NotNull ProjectDTO projectDTO, @NotNull String userId);
+    void merge(@NotNull final Project project);
 
-    void remove(@NotNull String id, @NotNull String userId);
+    void remove(@NotNull final Project project);
 
-    void removeAll(@NotNull String userId);
+    void removeAll(@NotNull final String userId);
 }

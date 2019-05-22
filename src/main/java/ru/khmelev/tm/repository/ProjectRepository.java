@@ -1,81 +1,67 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.dto.ProjectDTO;
+import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.exception.RepositoryException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 @Repository
 public class ProjectRepository implements IProjectRepository {
 
-    @NotNull private static Map<String, ProjectDTO> projectMap = new HashMap<>();
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public void persist(@NotNull final String id, @NotNull final ProjectDTO projectDTO) {
-        if (!id.isEmpty()) {
-            projectMap.put(id, projectDTO);
-        }
-    }
-
-    @NotNull
-    @Override
-    public ProjectDTO findOne(@NotNull final String id, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            final Collection<ProjectDTO> list = new ArrayList<>(findAll(userId));
-            for (ProjectDTO projectDTO : list) {
-                if (projectDTO.getId().equals(id)) {
-                    return projectDTO;
-                }
-            }
-        }
-        throw new RepositoryException();
-    }
-
-    @NotNull
-    @Override
-    public Collection<ProjectDTO> findAll(@NotNull final String userId) {
-        if (!userId.isEmpty()) {
-            Collection<ProjectDTO> list = new ArrayList<>(projectMap.values());
-            Iterator<ProjectDTO> it = list.iterator();
-            while (it.hasNext()) {
-                ProjectDTO projectDTO = it.next();
-                if (!projectDTO.getUserId().equals(userId)) {
-                    it.remove();
-                }
-            }
-            return list;
-        }
-        throw new RepositoryException();
+    public void persist(@NotNull final Project project) {
+        entityManager.persist(project);
     }
 
     @Override
-    public void merge(@NotNull final String id, @NotNull final ProjectDTO projectDTO, @NotNull final String userId) {
+    @Nullable
+    public Project findOne(@NotNull final String id, @NotNull final String userId) {
+        @NotNull final String query = "Select project from Project project where project.id = :id and userId = :userId";
+        @NotNull final TypedQuery<Project> typedQuery = entityManager.createQuery(query, Project.class);
+        typedQuery.setParameter("id", id);
+        typedQuery.setParameter("userId", userId);
+        return typedQuery.getSingleResult();
     }
 
+    @Override
+    @Nullable
+    public Collection<Project> findAll(@NotNull final String userId) {
+        @NotNull final String query = "Select project from Project project where userId = :userId";
+        @NotNull final TypedQuery<Project> typedQuery = entityManager.createQuery(query, Project.class);
+        typedQuery.setParameter("userId", userId);
+        return typedQuery.getResultList();
+    }
 
     @Override
-    public void remove(@NotNull final String id, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            Collection<ProjectDTO> list = projectMap.values();
-            Iterator<ProjectDTO> it = list.iterator();
-            while (it.hasNext()) {
-                ProjectDTO projectDTO = it.next();
-                if (projectDTO.getId().equals(id) && projectDTO.getUserId().equals(userId)) {
-                    it.remove();
-                    return;
-                }
-            }
-        }
+    public void merge(@NotNull final Project project) {
+        entityManager.merge(project);
+    }
+
+    @Override
+    public void remove(@NotNull final Project project) {
+        entityManager.remove(project);
     }
 
     @Override
     public void removeAll(@NotNull final String userId) {
-        if (!userId.isEmpty()) {
-            Collection<ProjectDTO> list = projectMap.values();
-            list.clear();
+
+//        @NotNull final String query = "Delete from Project project where project.userId = :userId";
+//        @NotNull final TypedQuery<Project> typedQuery = entityManager.createQuery(query, Project.class);
+//        typedQuery.setParameter("userId", userId);
+
+        for (Project project : Objects.requireNonNull(findAll(userId))) {
+            remove(project);
         }
     }
 }

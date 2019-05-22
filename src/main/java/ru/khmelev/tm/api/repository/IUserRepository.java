@@ -1,21 +1,22 @@
 package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.dto.UserDTO;
+import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.entity.User;
 
 import java.util.Collection;
 
 public interface IUserRepository {
 
-    void persist(@NotNull String id, @NotNull UserDTO sessionDTO);
+    void persist(@NotNull final User user);
 
-    @NotNull UserDTO findOne(@NotNull String id);
+    @Nullable User findOne(@NotNull final String id);
 
-    @NotNull Collection<UserDTO> findAll();
+    @Nullable Collection<User> findAll();
 
-    void merge(@NotNull String id, @NotNull UserDTO sessionDTO);
+    void merge(@NotNull final User user);
 
-    void remove(@NotNull String id);
+    void remove(@NotNull final User user);
 
-    void removeAll();
+    void removeAll(@NotNull final String userId);
 }

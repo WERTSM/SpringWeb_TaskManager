@@ -5,17 +5,17 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
-    public Class<?>[] getRootConfigClasses() {
-        return new Class[] { };
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{SpringJPAJavaBasedConfig.class};
     }
 
     @Override
     public Class<?>[] getServletConfigClasses() {
-        return new Class[] { WebMvcConfig.class };
+        return new Class[]{WebMvcConfig.class};
     }
 
     @Override
     public String[] getServletMappings() {
-        return new String[] { "/" };
+        return new String[]{"/"};
     }
 }

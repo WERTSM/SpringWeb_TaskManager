@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "user/userLogin";
+        return "user/user-login";
     }
 
     @PostMapping("/login")
@@ -39,27 +39,27 @@ public class UserController {
             session.setAttribute("userId", userDTO.getId());
             return "redirect:/user";
         } else {
-            return "user/userLogin";
+            return "user/user-login";
         }
     }
 
     @GetMapping("/logout")
     public String logout(final HttpSession session) {
         session.invalidate();
-        return "user/userLogin";
+        return "user/user-login";
     }
 
     @GetMapping("/user")
     public String userPage(final HttpSession session, final Model model) {
         @NotNull final String userId = (String) session.getAttribute("userId");
-        @NotNull final UserDTO userDTO = userService.findUser(userId);
+        @NotNull final UserDTO userDTO = Objects.requireNonNull(userService.findUser(userId));
         model.addAttribute("userDTO", userDTO);
-        return ("user/userPage");
+        return ("user/user-page");
     }
 
     @GetMapping("/userEdit")
     public String userEditPage() {
-        return ("user/userEdit");
+        return ("user/user-edit");
     }
 
     @PostMapping("/userEdit")
@@ -74,13 +74,13 @@ public class UserController {
         userDTO.setHashPassword(hashPassword);
         userDTO.setLogin(login);
         userDTO.setRole(Role.ADMIN);
-        userService.createUser(userDTO.getId(), userDTO);
+        userService.editUser(userDTO.getId(), userDTO);
         return "redirect:/logout";
     }
 
     @GetMapping("/registry")
     public String registryPage() {
-        return "user/userRegistry";
+        return "user/user-registry";
     }
 
     @PostMapping("/registry")
@@ -99,7 +99,7 @@ public class UserController {
             userService.createUser(userDTO.getId(), userDTO);
             return "redirect:/login";
         } else {
-            return "user/userRegistry";
+            return "user/user-registry";
         }
     }
 }

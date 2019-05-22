@@ -17,6 +17,7 @@ import ru.khmelev.tm.util.ConverterUtil;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -30,7 +31,7 @@ public class ProjecctController {
 
     @GetMapping("/projectCreate")
     public String projectCreatePage() {
-        return ("project/projectCreate");
+        return ("project/project-create");
     }
 
     @PostMapping("/projectCreate")
@@ -58,7 +59,7 @@ public class ProjecctController {
     public String projectEditPage(final HttpSession session, @RequestParam("PrId") final String projectId, final Model model) {
         @Nullable final ProjectDTO projectDTO = projectService.findProject(projectId, (String) session.getAttribute("userId"));
         model.addAttribute("project", projectDTO);
-        return "project/projectEdit";
+        return "project/project-edit";
     }
 
     @PostMapping("/projectEdit")
@@ -78,17 +79,18 @@ public class ProjecctController {
         projectDTO.setDateStart(ConverterUtil.convertFromStringToDate(dateStart));
         projectDTO.setDateFinish(ConverterUtil.convertFromStringToDate(dateFinish));
         projectDTO.setStatus(Status.INPROGRESS);
-        projectDTO.setUserId((String) session.getAttribute("userId"));
-        projectService.createProject(projectDTO.getId(), projectDTO);
+        @NotNull final String userId = (String) session.getAttribute("userId");
+        projectDTO.setUserId(userId);
+        projectService.editProject(projectDTO.getId(), projectDTO, userId);
         return "redirect:/projects";
     }
 
     @GetMapping("/projects")
     public String projectsPage(final HttpSession session, final Model model) {
         @NotNull final String userId = (String) session.getAttribute("userId");
-        @NotNull final Collection<ProjectDTO> projects = projectService.findAll(userId);
+        @NotNull final Collection<ProjectDTO> projects = Objects.requireNonNull(projectService.findAll(userId));
         model.addAttribute("projects", projects);
-        return "project/projectList";
+        return "project/project-list";
     }
 
     @PostMapping("/projectDelete")

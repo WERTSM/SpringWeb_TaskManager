@@ -1,25 +1,28 @@
 package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.dto.TaskDTO;
 
 import java.util.Collection;
 
 public interface ITaskService {
 
-    void createTask(@NotNull String id, @NotNull TaskDTO taskDTO);
+    void createTask(@NotNull String id, @NotNull final TaskDTO taskDTO);
 
-    @NotNull TaskDTO findTask(@NotNull String id, @NotNull String userId);
+    void editTask(@NotNull final String id, @NotNull final TaskDTO taskDTO, @NotNull final String userId);
 
-    @NotNull Collection<TaskDTO> findAll(@NotNull String userId);
+    @Nullable TaskDTO findTask(@NotNull final String id, @NotNull final String userId);
 
-    void editTask(@NotNull String id, @NotNull TaskDTO taskDTO, @NotNull String userId);
+    @Nullable Collection<TaskDTO> findAll(@NotNull final String userId);
 
-    void removeTask(@NotNull String id, @NotNull String userId);
+    @Nullable Collection<TaskDTO> findAllName(@NotNull final String findParameter, @NotNull final String userId);
 
-    void clearTask(@NotNull String userId);
+    @Nullable Collection<TaskDTO> findAllDescription(@NotNull final String findParameter, @NotNull final String userId);
 
-    Collection<TaskDTO> listTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
+    void removeTask(@NotNull final String id, @NotNull final String userId);
 
-    void removeAllTaskFromProject(@NotNull String projectId, @NotNull String userId);
+    void clearTask(@NotNull final String userId);
+
+    @Nullable Collection<TaskDTO> listTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
 }

@@ -18,6 +18,7 @@ import ru.khmelev.tm.util.ConverterUtil;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -32,10 +33,10 @@ public class TaskController {
     @GetMapping("/taskCreate")
     public String taskCreatePage(@NotNull final HttpSession session, @NotNull final Model model) {
         @NotNull final String userId = (String) session.getAttribute("userId");
-        @NotNull final Collection<ProjectDTO> projects = projectService.findAll(userId);
+        @NotNull final Collection<ProjectDTO> projects = Objects.requireNonNull(projectService.findAll(userId));
         model.addAttribute("userId", userId);
         model.addAttribute("projects", projects);
-        return "task/taskCreate";
+        return "task/task-create";
     }
 
     @PostMapping("/taskCreate")
@@ -72,9 +73,9 @@ public class TaskController {
         @Nullable final TaskDTO taskDTO = taskService.findTask(taskId, userId);
         model.addAttribute("task", taskDTO);
 
-        @NotNull final Collection<ProjectDTO> projects = projectService.findAll(userId);
+        @NotNull final Collection<ProjectDTO> projects = Objects.requireNonNull(projectService.findAll(userId));
         model.addAttribute("projects", projects);
-        return "task/taskEdit";
+        return "task/task-edit";
     }
 
     @PostMapping("/taskEdit")
@@ -96,17 +97,18 @@ public class TaskController {
         taskDTO.setDateFinish(ConverterUtil.convertFromStringToDate(dateFinish));
         taskDTO.setStatus(Status.INPROGRESS);
         taskDTO.setProjectId(taskProjectId);
-        taskDTO.setUserId((String) session.getAttribute("userId"));
-        taskService.createTask(taskDTO.getId(), taskDTO);
+        @NotNull final String userId = (String) session.getAttribute("userId");
+        taskDTO.setUserId(userId);
+        taskService.editTask(taskDTO.getId(), taskDTO, userId);
         return "redirect:/tasks";
     }
 
     @GetMapping("/tasks")
     public String tasksPage(final HttpSession session, final Model model) {
         @NotNull final String userId = (String) session.getAttribute("userId");
-        @NotNull final Collection<TaskDTO> tasks = taskService.findAll(userId);
+        @NotNull final Collection<TaskDTO> tasks = Objects.requireNonNull(taskService.findAll(userId));
         model.addAttribute("tasks", tasks);
-        return "task/taskList";
+        return "task/task-list";
     }
 
     @PostMapping("/taskDelete")
