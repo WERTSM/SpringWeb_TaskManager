@@ -37,7 +37,7 @@ public class TaskService implements ITaskService {
         task.setId(id);
         fromDTOToTask(taskDTO, task);
 
-        taskRepository.persist(task);
+        taskRepository.save(task);
     }
 
     @Nullable
@@ -66,7 +66,7 @@ public class TaskService implements ITaskService {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         @NotNull final Task task = Objects.requireNonNull(taskRepository.findOne(id, userId));
-        taskRepository.merge(fromDTOToTask(taskDTO, task));
+        taskRepository.save(fromDTOToTask(taskDTO, task));
     }
 
     @NotNull
@@ -111,7 +111,7 @@ public class TaskService implements ITaskService {
     public void removeTask(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
-        taskRepository.remove(Objects.requireNonNull(taskRepository.findOne(id, userId)));
+        taskRepository.delete(Objects.requireNonNull(taskRepository.findOne(id, userId)));
     }
 
     @Override

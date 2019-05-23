@@ -31,7 +31,7 @@ public class UserService implements IUserService {
         user.setId(id);
         fromDTOToUser(userDTO, user);
 
-        userRepository.persist(user);
+        userRepository.save(user);
     }
 
     @Nullable
@@ -59,14 +59,14 @@ public class UserService implements IUserService {
         if (id.isEmpty()) throw new ServiceException();
 
         @NotNull final User user = Objects.requireNonNull(userRepository.findOne(id));
-        userRepository.merge(fromDTOToUser(userDTO, user));
+        userRepository.save(fromDTOToUser(userDTO, user));
     }
 
     @Override
     public void removeUser(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
 
-        userRepository.remove(Objects.requireNonNull(userRepository.findOne(id)));
+        userRepository.delete(Objects.requireNonNull(userRepository.findOne(id)));
     }
 
     @NotNull
@@ -85,7 +85,7 @@ public class UserService implements IUserService {
     public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
         if (login.isEmpty() || pass.isEmpty()) throw new ServiceException();
 
-        @NotNull final Collection<UserDTO> users = findAll();
+        @NotNull final Collection<UserDTO> users = Objects.requireNonNull(findAll());
         for (UserDTO userDTO : users) {
             if (userDTO.getLogin().equals(login)) {
                 @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));

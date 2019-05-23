@@ -32,7 +32,7 @@ public class ProjectService implements IProjectService {
         project.setId(id);
         fromDTOToProject(projectDTO, project);
 
-        projectRepository.persist(project);
+        projectRepository.save(project);
     }
 
     @Nullable
@@ -62,9 +62,7 @@ public class ProjectService implements IProjectService {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         @Nullable final Project project = projectRepository.findOne(id, userId);
-        if (project != null) {
-            projectRepository.merge(fromDTOToProject(projectDTO, project));
-        }
+        projectRepository.save(fromDTOToProject(projectDTO, project));
     }
 
     @NotNull
@@ -109,7 +107,7 @@ public class ProjectService implements IProjectService {
     public void removeProject(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
-        projectRepository.remove(Objects.requireNonNull(projectRepository.findOne(id, userId)));
+        projectRepository.delete(Objects.requireNonNull(projectRepository.findOne(id, userId)));
     }
 
     @Override

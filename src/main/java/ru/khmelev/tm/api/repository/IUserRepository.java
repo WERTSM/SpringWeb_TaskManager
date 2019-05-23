@@ -1,22 +1,26 @@
 package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import ru.khmelev.tm.entity.User;
 
-import java.util.Collection;
+import javax.persistence.QueryHint;
+import java.util.List;
 
-public interface IUserRepository {
+@Repository
+public interface IUserRepository extends JpaRepository<User, String> {
 
-    void persist(@NotNull final User user);
+    @NotNull
+    @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
+    @Query(value = "SELECT user FROM User user WHERE id = :id")
+    User findOne(@NotNull @Param("id") final String id);
 
-    @Nullable User findOne(@NotNull final String id);
-
-    @Nullable Collection<User> findAll();
-
-    void merge(@NotNull final User user);
-
-    void remove(@NotNull final User user);
-
-    void removeAll(@NotNull final String userId);
+    @NotNull
+    @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
+    @Query(value = "Select user from User user")
+    List<User> findAll();
 }

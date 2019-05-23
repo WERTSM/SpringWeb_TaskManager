@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -17,6 +18,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "ru.khmelev.tm.api.repository")
 public class SpringJPAJavaBasedConfig {
 
     @Bean
@@ -50,6 +52,13 @@ public class SpringJPAJavaBasedConfig {
         properties.put("hibernate.show_sql", showSql);
         properties.put("hibernate.hbm2ddl.auto", tableStrategy);
         properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.format_sql", true);
+        properties.put("hibernate.cache.use_second_level_cache", "true");
+        properties.put("hibernate.cache.use_query_cache", "true");
+        properties.put("hibernate.cache.use_minimal_puts", "true");
+        properties.put("hibernate.cache.hazelcast.use_lite_member", "true");
+        properties.put("hibernate.cache.region_prefix", "task-manager");
+        properties.put("hibernate.cache.region.factory_class", "com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }

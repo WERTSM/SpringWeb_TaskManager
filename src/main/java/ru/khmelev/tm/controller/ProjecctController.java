@@ -24,9 +24,11 @@ import java.util.UUID;
 public class ProjecctController {
 
     @Autowired
+    private
     IUserService userService;
 
     @Autowired
+    private
     IProjectService projectService;
 
     @GetMapping("/projectCreate")
