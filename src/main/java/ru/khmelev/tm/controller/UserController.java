@@ -1,49 +1,71 @@
 package ru.khmelev.tm.controller;
 
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.enumeration.Role;
+import ru.khmelev.tm.service.UserService;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 import java.util.UUID;
 
-@Controller
-public class UserController {
+@Getter
+@Setter
+@ManagedBean
+@RequestScoped
+@URLMappings(
+        mappings = {
+                @URLMapping(id = "userLogin", pattern = "/userLogin", viewId = "/WEB-INF/views/user/user-login.xhtml")
+        })
+public class UserController extends SpringBeanAutowiringSupport {
 
     @Autowired
     private IUserService userService;
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "user/user-login";
-    }
+    private String login;
 
-    @PostMapping("/login")
-    public String login(
-            @RequestParam("login") final String login,
-            @RequestParam("password") final String password,
-            final HttpSession session
-    ) {
+    private String password;
+
+    @NotNull
+    private FacesContext facesContext = FacesContext.getCurrentInstance();
+    @NotNull
+    private HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+    @NotNull
+    private
+    String userId = (String) session.getAttribute("userId");
+
+    public String login1() {
+        System.out.println("~!!!!!!!!!!!!!");
         @Nullable final UserDTO userDTO = userService.userLogin(login, password);
         if (userDTO != null) {
             session.setAttribute("userId", userDTO.getId());
-            return "redirect:/user";
+            return "/WEB-INF/views/project/project-list.xhtml?faces-redirect=true";
         } else {
-            return "user/user-login";
+            return "/WEB-INF/views/user/user-login.xhtml?faces-redirect=true";
         }
     }
 
-    @GetMapping("/logout")
     public String logout(final HttpSession session) {
         session.invalidate();
         return "user/user-login";

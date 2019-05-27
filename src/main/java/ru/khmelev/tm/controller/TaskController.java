@@ -1,5 +1,7 @@
 package ru.khmelev.tm.controller;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.ProjectDTO;
@@ -15,14 +18,20 @@ import ru.khmelev.tm.dto.TaskDTO;
 import ru.khmelev.tm.enumeration.Status;
 import ru.khmelev.tm.util.ConverterUtil;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-@Controller
-public class TaskController {
+@Getter
+@Setter
+@ManagedBean
+@RequestScoped
+public class TaskController extends SpringBeanAutowiringSupport  {
 
     @Autowired
     private ITaskService taskService;

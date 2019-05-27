@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+<f:view>
+    <h:head>
+        <title>JSF Title</title>
+    </h:head>
+
+    <h:body>
+        <h:panelGrid title="JSF panelGrid Title" border="10" columns="2">
+
+            <h:outputLabel value="JSF standart label"/>
+            <h:button value="JSF default button" title="JSF button Title" outcome="nextPage"/>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:form>
+            <p:panel header="PrimeFaces Components">
+                <p:outputLabel for="login" value="Введите значение: "/>
+
+                <p:inputText id="login" title="Binding with ManagedBean"
+                             value="#{userController.login}">
+
+                </p:inputText>
+                <p:outputLabel for="login" value="Введите значение2: "/>
+                <p:inputText id="password" title="Binding with ManagedBeanw"
+                             value="#{userController.password}">
+
+                </p:inputText>
+
+                <br/>
+
+                <p:commandButton value="GO to next page" action="#{userController.login1()}"/>
+
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</f:view>
+
+</html>
