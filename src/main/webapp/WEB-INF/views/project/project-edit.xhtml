@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{projectController.id}"/>
+    <f:viewAction action="#{projectController.findProject()}"/>
+</f:metadata>
+
+<f:view>
+    <ui:composition template="/WEB-INF/views/templates/template.xhtml">
+        <ui:param name="title" value="Редактирование проекта"/>
+        <ui:define name="content">
+            <h1><p:outputLabel value="РЕДАКТИРОВАНИЕ ПРОЕКТА"/></h1>
+            <h:form>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Имя Проекта"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{projectController.projectDTO.name}"/>
+                </p:outputPanel>
+                <p:spacer height="20"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Описание ПРОЕКТА"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{projectController.projectDTO.description}"/>
+                </p:outputPanel>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Дата начала ПРОЕКТА"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:calendar value="#{projectController.projectDTO.dateStart}"/>
+                </p:outputPanel>
+                <p:spacer height="20"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Дата окончания ПРОЕКТА"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:calendar value="#{projectController.projectDTO.dateFinish}"/>
+                </p:outputPanel>
+                <p:spacer height="20"/>
+
+                <p:outputPanel>
+                    <p:commandButton value="Сохранить изменения"
+                                     action="#{projectController.projectEdit()}"
+                                     style="float:left"/>
+                    <p:commandButton value="Вернуться к проектам"
+                                     action="project-list?faces-redirect=true"
+                                     style="float:right"/>
+                </p:outputPanel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

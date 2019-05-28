@@ -30,4 +30,6 @@ public class TaskDTO implements Serializable {
     private Date dateCreate;
 
     private String userId;
+
+    private String projectName;
 }

@@ -11,6 +11,7 @@ import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.TaskDTO;
+import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
 
@@ -47,7 +48,7 @@ public class TaskService implements ITaskService {
     public TaskDTO findTask(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
         @NotNull final Task task = Objects.requireNonNull(taskRepository.findOne(id, userId));
-        return fromTaskToDTO(task);
+        return fromTaskToDTO(task, userId);
     }
 
     @NotNull
@@ -58,7 +59,7 @@ public class TaskService implements ITaskService {
         @NotNull final Collection<Task> list = Objects.requireNonNull(taskRepository.findAll(userId));
         @NotNull final List<TaskDTO> listDTO = new ArrayList<>();
         for (Task task : list) {
-            listDTO.add(fromTaskToDTO(task));
+            listDTO.add(fromTaskToDTO(task, userId));
         }
         return listDTO;
     }
@@ -85,7 +86,7 @@ public class TaskService implements ITaskService {
         }
         @NotNull final List<TaskDTO> listDTO = new ArrayList<>();
         for (Task task : list) {
-            listDTO.add(fromTaskToDTO(task));
+            listDTO.add(fromTaskToDTO(task, userId));
         }
         return listDTO;
     }
@@ -104,7 +105,7 @@ public class TaskService implements ITaskService {
         }
         @NotNull final List<TaskDTO> listDTO = new ArrayList<>();
         for (Task task : list) {
-            listDTO.add(fromTaskToDTO(task));
+            listDTO.add(fromTaskToDTO(task, userId));
         }
         return listDTO;
     }
@@ -132,7 +133,7 @@ public class TaskService implements ITaskService {
 
         @NotNull final List<TaskDTO> listDTO = new ArrayList<>();
         for (Task task : list) {
-            listDTO.add(fromTaskToDTO(task));
+            listDTO.add(fromTaskToDTO(task, userId));
         }
         return listDTO;
     }
@@ -155,8 +156,9 @@ public class TaskService implements ITaskService {
     }
 
     @NotNull
-    private TaskDTO fromTaskToDTO(@NotNull final Task task) {
+    private TaskDTO fromTaskToDTO(@NotNull final Task task, @NotNull final String userId) {
         @NotNull final TaskDTO taskDTO = new TaskDTO();
+        @Nullable final Project project = task.getProject();
         taskDTO.setId(task.getId());
         taskDTO.setName(task.getName());
         taskDTO.setDescription(task.getDescription());
@@ -164,10 +166,18 @@ public class TaskService implements ITaskService {
         taskDTO.setDateFinish(task.getDateFinish());
         taskDTO.setDateCreate(task.getDateCreate());
         taskDTO.setStatus(task.getStatus());
-        if (task.getProject() == null) {
-            taskDTO.setProjectId("");
+
+        @NotNull final String projectId;
+        if (project != null) {
+            projectId = project.getId();
+            taskDTO.setProjectId(projectId);
+            System.out.println(projectId);
+            System.out.println(projectId);
+            System.out.println(projectId);
+            System.out.println(projectId);
+            taskDTO.setProjectName(projectRepository.findOne(projectId, userId).getName());
         } else {
-            taskDTO.setProjectId(task.getProject().getId());
+            taskDTO.setProjectId("");
         }
         taskDTO.setUserId(task.getUser().getId());
         return taskDTO;

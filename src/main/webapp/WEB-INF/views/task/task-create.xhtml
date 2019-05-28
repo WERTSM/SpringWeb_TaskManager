@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+    <ui:composition template="/WEB-INF/views/templates/template.xhtml">
+        <ui:param name="title" value="Создание задачи"/>
+        <ui:define name="content">
+            <h:form>
+                <p:outputPanel>
+                <p:outputPanel>
+                    <p:outputLabel value="Название проекта:"/>
+                </p:outputPanel>
+                    <p:selectOneMenu id="projectId" value="#{taskController.taskDTO.projectId}" effect="fold" editable="true">
+                        <f:selectItem itemLabel="Без проекта" itemValue=""/>
+                        <f:selectItems value="#{taskController.projectList()}"
+                                       var="projectDTO"
+                                       itemLabel="#{projectDTO.name}"
+                                       itemValue="#{projectDTO.id}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Имя ЗАДАЧИ"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{taskController.taskDTO.name}"/>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Описание ЗАДАЧИ"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{taskController.taskDTO.description}"/>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Дата начала ЗАДАЧИ"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:calendar value="#{taskController.taskDTO.dateStart}"/>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:outputLabel value="Дата окончания ЗАДАЧИ"/>
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:calendar value="#{taskController.taskDTO.dateFinish}"/>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:commandButton value="Сохранить задачу"
+                                     action="#{taskController.taskCreate()}"
+                                     style="float:left"/>
+                    <p:commandButton value="Вернуться к задачам"
+                                     action="task-list?faces-redirect=true"
+                                     style="float:right"/>
+                </p:outputPanel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

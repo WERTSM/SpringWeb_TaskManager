@@ -9,49 +9,53 @@
 
 <f:view>
     <ui:composition template="/WEB-INF/views/templates/template.xhtml">
-        <ui:param name="title" value="Список проектов"/>
+        <ui:param name="title" value="Список задач"/>
         <ui:define name="content">
             <h:form>
                 <p:dataTable id="dataTableProjectsList"
                              rowIndexVar="index"
-                             value="#{projectController.projectList()}"
-                             var="project">
+                             value="#{taskController.taskList()}"
+                             var="task">
                     <f:facet name="header">
                         <p:outputPanel style="margin: 5px;">
-                            <p:outputLabel value="ПРОЕКТЫ"/>
+                            <p:outputLabel value="ЗАДАЧИ"/>
                         </p:outputPanel>
                     </f:facet>
                     <p:column headerText="№" width="45" style="text-align: center;">
                         <!--@elvariable id="index" type="int"-->
                         <p:outputLabel value="#{index + 1}."/>
                     </p:column>
-                    <p:column headerText="Имя Проекта" style="text-align: center;">
-                        <p:outputLabel value="#{project.name}"/>
+                    <p:column headerText="Имя ЗАДАЧИ" style="text-align: center;">
+                        <p:outputLabel value="#{task.name}"/>
                     </p:column>
-                    <p:column headerText="Описание ПРОЕКТА" style="text-align: center;">
-                        <p:outputLabel value="#{project.description}"/>
+                    <p:column headerText="Описание ЗАДАЧИ" style="text-align: center;">
+                        <p:outputLabel value="#{task.description}"/>
                     </p:column>
 
-                    <p:column headerText="Дата начала ПРОЕКТА" style="text-align: center">
-                        <p:outputLabel value="#{project.dateStart}">
+                    <p:column headerText="Дата начала ЗАДАЧИ" style="text-align: center">
+                        <p:outputLabel value="#{task.dateStart}">
                             <f:convertDateTime pattern="dd.MM.yyyy"/>
                         </p:outputLabel>
                     </p:column>
 
-                    <p:column headerText="Дата окончания ПРОЕКТА" style="text-align: center">
-                        <p:outputLabel value="#{project.dateFinish}">
+                    <p:column headerText="Дата окончания ЗАДАЧИ" style="text-align: center">
+                        <p:outputLabel value="#{task.dateFinish}">
                             <f:convertDateTime pattern="dd.MM.yyyy"/>
                         </p:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Имя связанного проекта" style="text-align: center">
+                        <p:outputLabel value="#{task.projectName}"/>
                     </p:column>
 
                     <p:column width="30" style="text-align: center;">
-                        <p:link outcome="project-edit">
-                            <i class="fa fa-edit" style="font-size: 1.5em;margin: 5px"/>
-                            <f:param name="id" value="#{project.id}"/>
+                        <p:link outcome="task-edit">
+                            <i class="fa fa-edit"/>
+                            <f:param name="id" value="#{task.id}"/>
                         </p:link>
                     </p:column>
                     <p:column width="30" style="text-align: center;">
-                        <p:commandLink actionListener="#{projectController.projectDelete(project.id)}"
+                        <p:commandLink actionListener="#{taskController.taskDelete(task.id)}"
                                        update="@form">
                             <i class="fa fa-trash" style="font-size: 1.5em;margin: 5px;"/>
                         </p:commandLink>
@@ -60,8 +64,8 @@
                 <p:spacer height="20"/>
                 <p:outputPanel>
                     <p:outputPanel>
-                        <p:commandButton value="Создать ПРОЕКТ"
-                                         action="project-create"
+                        <p:commandButton value="Создать ЗАДАЧУ"
+                                         action="task-create"
                                          style="float:left"/>
                     </p:outputPanel>
                 </p:outputPanel>

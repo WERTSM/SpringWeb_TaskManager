@@ -33,10 +33,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @ManagedBean
-@RequestScoped
+@ViewScoped
 @URLMappings(
         mappings = {
-                @URLMapping(id = "userLogin", pattern = "/userLogin", viewId = "/WEB-INF/views/user/user-login.xhtml")
+                @URLMapping(id = "userLogin", pattern = "/userLogin", viewId = "/WEB-INF/views/user/user-login.xhtml"),
+                @URLMapping(id = "userPage", pattern = "/userPage", viewId = "/WEB-INF/views/user/user-page.xhtml"),
         })
 public class UserController extends SpringBeanAutowiringSupport {
 
