@@ -171,10 +171,6 @@ public class TaskService implements ITaskService {
         if (project != null) {
             projectId = project.getId();
             taskDTO.setProjectId(projectId);
-            System.out.println(projectId);
-            System.out.println(projectId);
-            System.out.println(projectId);
-            System.out.println(projectId);
             taskDTO.setProjectName(projectRepository.findOne(projectId, userId).getName());
         } else {
             taskDTO.setProjectId("");

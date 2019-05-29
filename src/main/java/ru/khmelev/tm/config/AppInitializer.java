@@ -6,16 +6,16 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{SpringJPAJavaBasedConfig.class, WebMvcConfig.class};
+        return new Class[]{SpringJPAJavaBasedConfig.class, WebConfig.class};
     }
 
     @Override
-    public Class<?>[] getServletConfigClasses() {
-        return new Class[]{};
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[0];
     }
 
     @Override
-    public String[] getServletMappings() {
-        return new String[]{"/"};
+    protected String[] getServletMappings() {
+        return new String[0];
     }
 }

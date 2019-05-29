@@ -33,16 +33,14 @@ import java.util.UUID;
         })
 public class ProjectController extends SpringBeanAutowiringSupport {
 
+    String id;
     @Autowired
     private
     IProjectService projectService;
-
     @Autowired
     private IUserService userService;
-
     @NotNull
     private ProjectDTO projectDTO = new ProjectDTO();
-
     @NotNull
     private FacesContext facesContext = FacesContext.getCurrentInstance();
     @NotNull
@@ -51,8 +49,6 @@ public class ProjectController extends SpringBeanAutowiringSupport {
 
     private
     String userId = (String) session.getAttribute("userId");
-
-    String id;
 
     public List<ProjectDTO> projectList() {
         return (List<ProjectDTO>) projectService.findAll(userId);

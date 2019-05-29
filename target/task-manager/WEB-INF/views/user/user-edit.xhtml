@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{userController.findUser()}"/>
+</f:metadata>
+
+<f:view>
+    <ui:composition template="/WEB-INF/views/templates/template.xhtml">
+        <ui:param name="title" value="Редактирование проекта"/>
+        <ui:define name="content">
+            <h:form>
+                <p:panel header="АУТЕНТИФИКАЦИЯ">
+                    <p:outputPanel>
+                        <p:outputLabel value="РЕДАКТИРОВАНИЕ ПОЛЬЗОВАТЕЛЯ"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-fluid">
+                        <p:inputText value="#{userController.userDTO.login}"/>
+                    </p:outputPanel>
+                    <p:spacer height="20"/>
+
+                    <p:outputPanel>
+                        <p:outputLabel value="Укажите пароль"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-fluid">
+                        <p:inputText value="#{userController.password}"/>
+                    </p:outputPanel>
+                </p:panel>
+                <p:spacer height="25"/>
+
+                <p:outputPanel>
+                    <p:commandButton value="Сохранить изменения"
+                                     action="#{userController.userEdit()}"
+                                     style="float:left"/>
+                    <p:commandButton value="Вернуться к профилю"
+                                     action="user-page?faces-redirect=true"
+                                     style="float:right"/>
+                </p:outputPanel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

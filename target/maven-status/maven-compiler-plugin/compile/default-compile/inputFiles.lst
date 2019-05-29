@@ -6,6 +6,7 @@ C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\c
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\api\repository\IUserRepository.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\api\repository\IProjectRepository.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\service\UserService.java
+C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\config\WebConfig.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\dto\SessionDTO.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\dto\UserDTO.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\exception\EndpointException.java
@@ -21,7 +22,6 @@ C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\f
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\api\dto\IdentifiableDTO.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\entity\User.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\service\TaskService.java
-C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\config\WebMvcConfig.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\controller\TaskController.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\util\ConverterUtil.java
 C:\Users\WERTSM\IdeaProjects\SpringWeb_TaskManager\src\main\java\ru\khmelev\tm\exception\RepositoryException.java

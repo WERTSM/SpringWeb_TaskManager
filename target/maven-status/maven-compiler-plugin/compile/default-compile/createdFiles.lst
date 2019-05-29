@@ -7,13 +7,13 @@ ru\khmelev\tm\controller\UserController.class
 ru\khmelev\tm\entity\Project.class
 ru\khmelev\tm\exception\ServiceException.class
 ru\khmelev\tm\service\UserService.class
+ru\khmelev\tm\config\WebConfig.class
 ru\khmelev\tm\api\service\ITaskService.class
 ru\khmelev\tm\api\repository\ITaskRepository.class
 ru\khmelev\tm\dto\SessionDTO.class
 ru\khmelev\tm\util\ConverterUtil.class
 ru\khmelev\tm\config\AppInitializer.class
 ru\khmelev\tm\api\dto\IdentifiableDTO.class
-ru\khmelev\tm\config\WebMvcConfig.class
 ru\khmelev\tm\controller\TaskController.class
 ru\khmelev\tm\controller\ProjectController.class
 ru\khmelev\tm\entity\Identifiable.class

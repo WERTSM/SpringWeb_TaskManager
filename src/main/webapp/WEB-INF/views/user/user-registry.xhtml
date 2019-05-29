@@ -6,12 +6,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Аутентификация</title>
+    <title>Создание нового пользователя</title>
 </h:head>
 <h:body>
     <f:view>
         <h:form>
-            <p:panel header="АУТЕНТИФИКАЦИЯ">
+            <p:panel header="СОЗДАНИЕ НОВОГО ПОЛЬЗОВАТЕЛЯ">
                 <p:outputPanel>
                     <p:outputLabel value="Укажите логин пользователя"/>
                 </p:outputPanel>
@@ -30,11 +30,11 @@
             <p:spacer height="20"/>
 
             <p:outputPanel>
-                <p:commandButton value="Залогиниться"
-                                 action="#{userController.loginUser()}"/>
+                <p:commandButton value="Создать пользователя"
+                                 action="#{userController.registration()}"/>
                 <p:spacer width="20"/>
-                <p:commandButton value="Регистрация"
-                                 action="user-registry"/>
+                <p:commandButton value="Вернуться к аутентификации"
+                                 action="user-login?faces-redirect=true"/>
             </p:outputPanel>
 
         </h:form>
