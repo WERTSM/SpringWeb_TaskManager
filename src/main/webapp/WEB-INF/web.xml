@@ -3,6 +3,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+    </listener>
     <servlet>
         <servlet-name>faces</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -26,14 +36,14 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
         <param-value>true</param-value>
     </context-param>
 
-<!--    <servlet>-->
-<!--        <servlet-name>CXFServlet</servlet-name>-->
-<!--        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>-->
-<!--        <load-on-startup>1</load-on-startup>-->
-<!--    </servlet>-->
-<!---->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>CXFServlet</servlet-name>-->
-<!--        <url-pattern>ru/khmelev/tm/endpoint/*</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/endpoint/*</url-pattern>
+    </servlet-mapping>
 </web-app>

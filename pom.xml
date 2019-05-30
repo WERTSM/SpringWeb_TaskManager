@@ -10,7 +10,6 @@
     <packaging>war</packaging>
 
     <name>SpringWeb_TaskManager Maven Webapp</name>
-    <url>http://www.example.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -103,13 +102,11 @@
             <version>3.4.2.Final</version>
             <scope>compile</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>2.2.19</version>
         </dependency>
-
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-config-prettyfaces</artifactId>
@@ -126,9 +123,6 @@
             <artifactId>primefaces</artifactId>
             <version>RELEASE</version>
         </dependency>
-
-        <!--Primefaces themes-->
-        <!--Primefaces темы-->
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
@@ -144,17 +138,16 @@
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>3.3.2</version>
         </dependency>
-
-        <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-core</artifactId>
-        <version>RELEASE</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-bindings-soap</artifactId>
-        <version>RELEASE</version>
-    </dependency>
+<!--        <dependency>-->
+<!--        <groupId>org.apache.cxf</groupId>-->
+<!--        <artifactId>cxf-rt-core</artifactId>-->
+<!--        <version>RELEASE</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--        <groupId>org.apache.cxf</groupId>-->
+<!--        <artifactId>cxf-rt-bindings-soap</artifactId>-->
+<!--        <version>RELEASE</version>-->
+<!--    </dependency>-->
     </dependencies>
 
     <build>
