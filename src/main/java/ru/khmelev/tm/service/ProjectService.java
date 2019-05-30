@@ -44,7 +44,7 @@ public class ProjectService implements IProjectService {
         return fromProjectToDTO(project);
     }
 
-    @Nullable
+    @NotNull
     @Override
     public Collection<ProjectDTO> findAll(@NotNull final String userId) {
         if (userId.isEmpty()) throw new ServiceException();

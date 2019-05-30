@@ -14,11 +14,11 @@ public interface IProjectService {
 
     @Nullable ProjectDTO findProject(@NotNull final String id, @NotNull final String userId);
 
-    @Nullable Collection<ProjectDTO> findAll(@NotNull final String userId);
+    @NotNull Collection<ProjectDTO> findAll(@NotNull final String userId);
 
-    @Nullable Collection<ProjectDTO> findAllName(@NotNull final String findParameter, @NotNull final String userId);
+    @NotNull Collection<ProjectDTO> findAllName(@NotNull final String findParameter, @NotNull final String userId);
 
-    @Nullable Collection<ProjectDTO> findAllDescription(@NotNull final String findParameter, @NotNull final String userId);
+    @NotNull Collection<ProjectDTO> findAllDescription(@NotNull final String findParameter, @NotNull final String userId);
 
     void removeProject(@NotNull final String id, @NotNull final String userId);
 

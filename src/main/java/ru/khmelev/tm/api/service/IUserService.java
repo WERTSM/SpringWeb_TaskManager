@@ -12,7 +12,7 @@ public interface IUserService {
 
     @Nullable UserDTO findUser(@NotNull final String id);
 
-    @Nullable Collection<UserDTO> findAll();
+    @NotNull Collection<UserDTO> findAll();
 
     void editUser(@NotNull final String id, @NotNull final UserDTO userDTO);
 
