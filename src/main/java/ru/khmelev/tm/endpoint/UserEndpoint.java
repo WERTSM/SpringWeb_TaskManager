@@ -88,7 +88,7 @@ public class UserEndpoint implements IUserEndpoint {
         final Message message = PhaseInterceptorChain.getCurrentMessage();
         final HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
         final HttpSession session = request.getSession(true);
-        System.out.println("SOAP проверка! Юзер вышел с таким логином: " + session.getAttribute("userId"));
+        System.out.println("SOAP проверка! Юзер вышел с таким айди: " + session.getAttribute("userId"));
         session.invalidate();
     }
 

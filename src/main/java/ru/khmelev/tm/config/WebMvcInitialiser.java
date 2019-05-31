@@ -16,7 +16,7 @@ public class WebMvcInitialiser implements WebApplicationInitializer {
         rootContext.register(SpringJPAJavaBasedConfig.class);
         rootContext.register(WebConfig.class);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
-        dispatcher.addMapping("/");
+        dispatcher.addMapping("/dispatcher/");
         dispatcher.setLoadOnStartup(1);
     }
 }
