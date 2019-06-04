@@ -138,16 +138,17 @@
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>3.3.2</version>
         </dependency>
-<!--        <dependency>-->
-<!--        <groupId>org.apache.cxf</groupId>-->
-<!--        <artifactId>cxf-rt-core</artifactId>-->
-<!--        <version>RELEASE</version>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--        <groupId>org.apache.cxf</groupId>-->
-<!--        <artifactId>cxf-rt-bindings-soap</artifactId>-->
-<!--        <version>RELEASE</version>-->
-<!--    </dependency>-->
+        <!-- Fasterxml Dependency -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.9.8</version>
+        </dependency>
     </dependencies>
 
     <build>

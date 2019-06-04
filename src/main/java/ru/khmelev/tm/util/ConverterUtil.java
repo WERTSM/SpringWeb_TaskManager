@@ -10,7 +10,7 @@ import java.util.Date;
 public class ConverterUtil {
 
     @NotNull
-    private static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     @NotNull
     public static String convertDateFormat(@NotNull final Date date) {
