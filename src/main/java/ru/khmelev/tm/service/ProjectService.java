@@ -40,8 +40,11 @@ public class ProjectService implements IProjectService {
     public ProjectDTO findProject(@NotNull final String id, @NotNull final String userId) {
         if (userId.isEmpty()) throw new ServiceException();
 
-        @NotNull final Project project = Objects.requireNonNull(projectRepository.findOne(id, userId));
-        return fromProjectToDTO(project);
+        @Nullable final Project project = projectRepository.findOne(id, userId);
+        if (project != null) {
+            return fromProjectToDTO(project);
+        }
+        return null;
     }
 
     @NotNull
@@ -62,6 +65,7 @@ public class ProjectService implements IProjectService {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         @Nullable final Project project = projectRepository.findOne(id, userId);
+        assert project != null;
         projectRepository.save(fromDTOToProject(projectDTO, project));
     }
 

@@ -41,14 +41,14 @@ public class UserService implements IUserService {
     public UserDTO findUser(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
 
-        @NotNull final User user = Objects.requireNonNull(userRepository.findOne(id));
+        @Nullable final User user = userRepository.findOne(id);
         return fromUserToDTO(user);
     }
 
-    @Nullable
+    @NotNull
     @Override
     public Collection<UserDTO> findAll() {
-        @NotNull final Collection<User> list = Objects.requireNonNull(userRepository.findAll());
+        @Nullable final Collection<User> list = userRepository.findAll();
         @NotNull final List<UserDTO> listDTO = new ArrayList<>();
         for (User user : list) {
             listDTO.add(fromUserToDTO(user));
@@ -60,7 +60,7 @@ public class UserService implements IUserService {
     public void editUser(@NotNull final String id, @NotNull UserDTO userDTO) {
         if (id.isEmpty()) throw new ServiceException();
 
-        @NotNull final User user = Objects.requireNonNull(userRepository.findOne(id));
+        @Nullable final User user = userRepository.findOne(id);
         userRepository.save(fromDTOToUser(userDTO, user));
     }
 
@@ -87,7 +87,7 @@ public class UserService implements IUserService {
     public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
         if (login.isEmpty() || pass.isEmpty()) throw new ServiceException();
 
-        @NotNull final Collection<UserDTO> users = Objects.requireNonNull(findAll());
+        @Nullable final Collection<UserDTO> users = findAll();
         for (UserDTO userDTO : users) {
             if (userDTO.getLogin().equals(login)) {
                 @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));

@@ -1,6 +1,7 @@
 package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -14,12 +15,12 @@ import java.util.List;
 @Repository
 public interface IUserRepository extends JpaRepository<User, String> {
 
-    @NotNull
+    @Nullable
     @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
     @Query(value = "SELECT user FROM User user WHERE id = :id")
     User findOne(@NotNull @Param("id") final String id);
 
-    @NotNull
+    @Nullable
     @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
     @Query(value = "Select user from User user")
     List<User> findAll();

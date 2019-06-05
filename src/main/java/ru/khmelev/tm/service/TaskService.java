@@ -47,7 +47,8 @@ public class TaskService implements ITaskService {
     @Override
     public TaskDTO findTask(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
-        @NotNull final Task task = Objects.requireNonNull(taskRepository.findOne(id, userId));
+        @Nullable final Task task = taskRepository.findOne(id, userId);
+        assert task != null;
         return fromTaskToDTO(task, userId);
     }
 
@@ -56,8 +57,9 @@ public class TaskService implements ITaskService {
     public Collection<TaskDTO> findAll(@NotNull final String userId) {
         if (userId.isEmpty()) throw new ServiceException();
 
-        @NotNull final Collection<Task> list = Objects.requireNonNull(taskRepository.findAll(userId));
+        @Nullable final Collection<Task> list = taskRepository.findAll(userId);
         @NotNull final List<TaskDTO> listDTO = new ArrayList<>();
+        assert list != null;
         for (Task task : list) {
             listDTO.add(fromTaskToDTO(task, userId));
         }

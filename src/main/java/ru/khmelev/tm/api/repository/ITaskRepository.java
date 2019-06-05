@@ -1,6 +1,7 @@
 package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,12 +16,12 @@ import java.util.Collection;
 @Repository
 public interface ITaskRepository extends JpaRepository<Task, String> {
 
-    @NotNull
+    @Nullable
     @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
     @Query(value = "Select task from Task task where task.id = :id and userId = :userId")
     Task findOne(@NotNull @Param("id") final String id, @NotNull @Param("userId") final String userId);
 
-    @NotNull
+    @Nullable
     @Query(value = "Select task from Task task where userId = :userId")
     Collection<Task> findAll(@NotNull @Param("userId") final String userId);
 

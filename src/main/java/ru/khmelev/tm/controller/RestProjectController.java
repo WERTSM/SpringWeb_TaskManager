@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.dto.ProjectDTO;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
@@ -19,34 +17,33 @@ public class RestProjectController {
     @Autowired
     private IProjectService projectService;
 
-    @PostMapping(value = "/projectCreate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean projectCreate(@RequestBody final ProjectDTO projectDTO) {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(projectDTO.getDateStart());
+    @PostMapping(value = "/projectCreate", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean projectCreate(@RequestBody @NotNull final ProjectDTO projectDTO) {
         projectService.createProject(projectDTO.getId(), projectDTO);
         return true;
     }
 
-    @GetMapping(value = "/findProject/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Nullable
+    @GetMapping(value = "/findProject/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProjectDTO findProject(final HttpSession session, @PathVariable(value = "id") @NotNull final String id) {
-        ProjectDTO projectDTO = projectService.findProject(id, (String) session.getAttribute("userId"));
-        System.out.println(projectDTO.getDateStart());
-        return projectDTO;
+        return projectService.findProject(id, (String) session.getAttribute("userId"));
     }
 
-    @GetMapping(value = "/findAllProject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @NotNull
+    @GetMapping(value = "/findAllProject", produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<ProjectDTO> findAllProject(final HttpSession session) {
-        @Nullable final Collection<ProjectDTO> collection = projectService.findAll((String) session.getAttribute("userId"));
         return projectService.findAll((String) session.getAttribute("userId"));
     }
 
-    @PutMapping(value = "/projectEdit", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void projectEdit(final HttpSession session, @RequestBody ProjectDTO projectDTO) {
+    @PutMapping(value = "/projectEdit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean projectEdit(final HttpSession session, @RequestBody @NotNull final ProjectDTO projectDTO) {
         projectService.editProject(projectDTO.getId(), projectDTO, (String) session.getAttribute("userId"));
+        return true;
     }
 
-    @DeleteMapping(value = "/projectDelete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void projectDelete(final HttpSession session, @PathVariable(value = "id") String id) {
+    @DeleteMapping(value = "/projectDelete/{id}")
+    public Boolean projectDelete(final HttpSession session, @PathVariable(value = "id") @NotNull final String id) {
         projectService.removeProject(id, (String) session.getAttribute("userId"));
+        return true;
     }
 }
