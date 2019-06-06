@@ -111,8 +111,11 @@ public class UserService implements IUserService {
         return user;
     }
 
-    @NotNull
-    private UserDTO fromUserToDTO(@NotNull final User user) {
+    @Nullable
+    private UserDTO fromUserToDTO(@Nullable final User user) {
+        if (user == null) {
+            return null;
+        }
         @NotNull final UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setLogin(user.getLogin());
