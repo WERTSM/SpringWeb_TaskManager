@@ -1,4 +1,4 @@
-package ru.khmelev.tm.controller;
+package ru.khmelev.tm.restController;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +23,7 @@ public class RestUserController {
 
     @NotNull
     @PostMapping(value = "/registry", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO registration(@RequestBody @NotNull final Account account) {
+    public String registration(@RequestBody @NotNull final Account account) {
         @NotNull final UserDTO newUserDTO = new UserDTO();
         if (!account.getLogin().isEmpty() && !account.getPassword().isEmpty()) {
             newUserDTO.setId(UUID.randomUUID().toString());
@@ -32,19 +32,20 @@ public class RestUserController {
             newUserDTO.setHashPassword(hashPassword);
             newUserDTO.setRole(Role.ADMIN);
             userService.createUser(newUserDTO.getId(), newUserDTO);
+            return newUserDTO.getId();
         }
-        return newUserDTO;
+        return "";
     }
 
-    @NotNull
+    @Nullable
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean login(final HttpSession session, @RequestBody @NotNull final Account account ) {
+    public UserDTO login(final HttpSession session, @RequestBody @NotNull final Account account) {
         @Nullable final UserDTO userDTO = userService.userLogin(account.getLogin(), account.getPassword());
         if (userDTO == null) {
-            return false;
+            return null;
         }
         session.setAttribute("userId", userDTO.getId());
-        return true;
+        return userDTO;
     }
 
     @NotNull

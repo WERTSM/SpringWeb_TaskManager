@@ -1,4 +1,4 @@
-package ru.khmelev.tm.controller;
+package ru.khmelev.tm.restController;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
