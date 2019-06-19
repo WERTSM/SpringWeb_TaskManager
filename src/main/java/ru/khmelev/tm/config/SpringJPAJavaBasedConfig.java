@@ -9,6 +9,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
+import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -18,8 +20,9 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@EnableJdbcHttpSession
 @EnableJpaRepositories(basePackages = "ru.khmelev.tm.api.repository")
-public class SpringJPAJavaBasedConfig {
+public class SpringJPAJavaBasedConfig extends AbstractHttpSessionApplicationInitializer {
 
     @Bean
     public DataSource dataSource(
