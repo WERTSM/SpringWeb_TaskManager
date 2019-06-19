@@ -3,7 +3,6 @@ package ru.khmelev.tm.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -30,7 +29,7 @@ public class SecurityWebMvcConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/", "/userRegistry", "/rest/login/","/endpoint/**", "/endpoint/login").permitAll()
+                .antMatchers("/", "/userRegistry", "/rest/login/", "/endpoint/**", "/endpoint/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/SpringSecurity").successHandler(customAuthenticationSuccessHandler).permitAll()
