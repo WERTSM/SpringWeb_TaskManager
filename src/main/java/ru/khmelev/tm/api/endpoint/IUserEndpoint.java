@@ -39,17 +39,12 @@ public interface IUserEndpoint {
             @WebParam(name = "id") @NotNull final String id
     );
 
-    @Nullable
     @WebMethod
-    UserDTO userLogin(
+    Boolean userLogin(
             @WebParam(name = "login") @NotNull final String login,
             @WebParam(name = "password") @NotNull final String password
     );
 
     @WebMethod
     void userLogOut();
-
-    @WebMethod
-    void testSoapUser(@WebParam(name = "id") @NotNull final String id
-    );
 }

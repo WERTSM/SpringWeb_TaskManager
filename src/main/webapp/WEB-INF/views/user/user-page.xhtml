@@ -36,8 +36,7 @@
                 <p:commandButton value="Меняем данные?"
                                  action="user-edit?faces-redirect=true"/>
                 <p:spacer width="20"/>
-                <p:commandButton value="Выход из-под этого пользователя"
-                                 action="#{userController.logout()}"/>
+                <p:button value="Выход из-под этого пользователя" href="#{request.contextPath}/logout"/>
             </p:outputPanel>
 
         </h:form>

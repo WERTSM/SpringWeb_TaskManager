@@ -32,6 +32,7 @@ public class RestProjectController {
     @NotNull
     @GetMapping(value = "/findAllProject", produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<ProjectDTO> findAllProject(final HttpSession session) {
+        System.out.println((String) session.getAttribute("userId"));
         return projectService.findAll((String) session.getAttribute("userId"));
     }
 

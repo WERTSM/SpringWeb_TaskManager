@@ -7,11 +7,11 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.enumeration.Role;
-import ru.khmelev.tm.util.PasswordHashUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -30,6 +30,7 @@ import java.util.UUID;
                 @URLMapping(id = "userPage", pattern = "/userPage", viewId = "/WEB-INF/views/user/user-page.xhtml"),
                 @URLMapping(id = "userLogin", pattern = "/userLogin", viewId = "/WEB-INF/views/user/user-login.xhtml"),
                 @URLMapping(id = "userEdit", pattern = "/userEdit", viewId = "/WEB-INF/views/user/user-edit.xhtml"),
+                @URLMapping(id = "login", pattern = "/login", viewId = "/WEB-INF/views/customLoginHTML.html"),
         })
 public class UserController extends SpringBeanAutowiringSupport {
 
@@ -37,6 +38,10 @@ public class UserController extends SpringBeanAutowiringSupport {
     UserDTO userDTO = new UserDTO();
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private String login;
     private String password;
     @NotNull
@@ -72,7 +77,7 @@ public class UserController extends SpringBeanAutowiringSupport {
     }
 
     public String userEdit() {
-        @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
+        @NotNull final String hashPassword = Objects.requireNonNull(bCryptPasswordEncoder.encode(password));
         userDTO.setHashPassword(hashPassword);
         userService.editUser(userDTO.getId(), userDTO);
         return "/WEB-INF/views/user/user-login.xhtml?faces-redirect=true";
@@ -83,7 +88,7 @@ public class UserController extends SpringBeanAutowiringSupport {
             @NotNull final UserDTO newUserDTO = new UserDTO();
             newUserDTO.setId(UUID.randomUUID().toString());
             newUserDTO.setLogin(login);
-            @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
+            @NotNull final String hashPassword = Objects.requireNonNull(bCryptPasswordEncoder.encode(password));
             newUserDTO.setHashPassword(hashPassword);
             newUserDTO.setRole(Role.ADMIN);
             userService.createUser(newUserDTO.getId(), newUserDTO);

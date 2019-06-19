@@ -1,8 +1,9 @@
 package ru.khmelev.tm.enumeration;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role {
+public enum Role implements GrantedAuthority {
 
     ADMIN("ADMIN"), USER("USER");
 
@@ -14,6 +15,11 @@ public enum Role {
 
     @NotNull
     public String displayName() {
+        return displayName;
+    }
+
+    @Override
+    public String getAuthority() {
         return displayName;
     }
 }

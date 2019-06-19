@@ -24,4 +24,8 @@ public interface IUserRepository extends JpaRepository<User, String> {
     @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
     @Query(value = "Select user from User user")
     List<User> findAll();
+
+    @Nullable
+    @Query(value = "SELECT user FROM User user WHERE user.login = :login")
+    User findByLogin(@NotNull @Param("login") final String login);
 }

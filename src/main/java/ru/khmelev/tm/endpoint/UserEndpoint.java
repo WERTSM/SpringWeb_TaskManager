@@ -6,6 +6,10 @@ import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
@@ -17,12 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
-
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public class UserEndpoint implements IUserEndpoint {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Override
     @WebMethod
@@ -68,18 +74,29 @@ public class UserEndpoint implements IUserEndpoint {
 
     @Override
     @WebMethod
-    public UserDTO userLogin(
+    public Boolean userLogin(
             @WebParam(name = "login") @NotNull final String login,
             @WebParam(name = "password") @NotNull final String pass
     ) {
-        @Nullable final UserDTO userDTO = userService.userLogin(login, pass);
-        if (userDTO != null) {
+
+        try {
+            final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login, pass);
+
             final Message message = PhaseInterceptorChain.getCurrentMessage();
             final HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
             final HttpSession session = request.getSession(true);
-            session.setAttribute("userId", userDTO.getId());
-            return userDTO;
-        } else return null;
+            final Authentication authentication = authenticationManager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            @NotNull final String login2 = authentication.getName();
+            @Nullable final UserDTO userDTO = userService.findByLogin(login2);
+            if (userDTO != null) {
+                session.setAttribute("userId", userDTO.getId());
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Authentication failed for: " + login, ex);
+        }
+        return true;
     }
 
     @Override
@@ -88,14 +105,6 @@ public class UserEndpoint implements IUserEndpoint {
         final Message message = PhaseInterceptorChain.getCurrentMessage();
         final HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
         final HttpSession session = request.getSession(true);
-        System.out.println("SOAP проверка! Юзер вышел с таким айди: " + session.getAttribute("userId"));
         session.invalidate();
-    }
-
-    @Override
-    @WebMethod
-    public void testSoapUser(@WebParam(name = "id") @NotNull final String id
-    ) {
-        System.out.println("SOAP РАБОТАЕТ!!!! пришедшее значение в эндпоинте-юзере: " + id);
     }
 }
