@@ -31,8 +31,6 @@ public class SecurityWebMvcConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/", "/userRegistry", "/rest/login/","/endpoint/**", "/endpoint/login").permitAll()
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST).authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/SpringSecurity").successHandler(customAuthenticationSuccessHandler).permitAll()
