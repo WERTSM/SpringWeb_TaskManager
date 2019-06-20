@@ -20,8 +20,9 @@
     <context:component-scan base-package="ru.khmelev.tm"/>
     <mvc:annotation-driven/>
 
-    <jaxws:endpoint id="projectEndPoint" implementor="ru.khmelev.tm.endpoint.ProjectEndpoint" address="/projectEndpoint"/>
-    <jaxws:endpoint id="taskEndPoint" implementor="ru.khmelev.tm.endpoint.TaskEndpoint" address="/taskEndpoint"/>
-    <jaxws:endpoint id="userEndPoint" implementor="ru.khmelev.tm.endpoint.UserEndpoint" address="/userEndpoint"/>
+    <jaxws:endpoint id="projectEndpoint" implementor="ru.khmelev.tm.endpoint.ProjectEndpoint" address="/projectEndpoint"/>
+    <jaxws:endpoint id="taskEndpoint" implementor="ru.khmelev.tm.endpoint.TaskEndpoint" address="/taskEndpoint"/>
+    <jaxws:endpoint id="userEndpoint" implementor="ru.khmelev.tm.endpoint.UserEndpoint" address="/userEndpoint"/>
+    <jaxws:endpoint id="authenticationEndpoint" implementor="ru.khmelev.tm.endpoint.AuthenticationEndpoint" address="/authenticationEndpoint"/>
 
 </beans>

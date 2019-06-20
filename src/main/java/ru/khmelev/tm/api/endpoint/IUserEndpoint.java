@@ -38,13 +38,4 @@ public interface IUserEndpoint {
     void removeUser(
             @WebParam(name = "id") @NotNull final String id
     );
-
-    @WebMethod
-    Boolean userLogin(
-            @WebParam(name = "login") @NotNull final String login,
-            @WebParam(name = "password") @NotNull final String password
-    );
-
-    @WebMethod
-    void userLogOut();
 }
