@@ -62,3 +62,13 @@
     32.1.3 РЕАЛИЗОВАТЬ АВТОРИЗАЦИЮ ДЛЯ REST-КОНТРОЛЛЕРОВ                                                                ок
     32.1.4 РЕАЛИЗОВАТЬ АВТОРИЗАЦИЮ ДЛЯ SOAP ENDPOINT                                                                    ок
 32.2 ПРОГРАММНЫЙ КОД                                                                                                    ок
+
+33 ПРАКТИЧЕСКОЕ ЗАДАНИЕ SP-08                                                                                           ок
+
+33.1 ПЕРЕВЕСТИ ПРОЕКТ НА SPRING BOOT                                                                                    ок
+    33.1.1 РАЗРАБОТАТЬ ФАЙЛ КОНФИГУРАЦИИ "application.properties"                                                       ок
+    33.1.2 ДОБАВИТЬ SPRING BOOT STARTER WEB                                                                             ок
+    33.1.3 ДОБАВИТЬ SPRING BOOT STARTER JAX-WS                                                                          ок
+    33.1.4 ДОБАВИТЬ SPRING BOOT STARTER DATA JPA                                                                        ок
+    33.1.5 ДОБАВИТЬ SPRING BOOT STARTER JSF                                                                             ок
+    33.1.6 ДОБАВИТЬ SPRING BOOT TESTING                                                                                 ок

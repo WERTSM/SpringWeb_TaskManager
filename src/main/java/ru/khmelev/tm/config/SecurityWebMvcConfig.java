@@ -39,11 +39,11 @@ public class SecurityWebMvcConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/userLogin", "/userRegistry", "/rest/login/", "/endpoint/", "/endpoint/authenticationEndpoint").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin().loginPage("/userLogin")
                 .loginProcessingUrl("/SpringSecurity").successHandler(customAuthenticationSuccessHandler)
-                .failureForwardUrl("/login").failureHandler(customAuthenticationFailHandler).permitAll()
+                .failureForwardUrl("/userLogin").failureHandler(customAuthenticationFailHandler).permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/login").permitAll()
+                .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/userLogin").permitAll()
                 .and()
                 .csrf().disable();
     }

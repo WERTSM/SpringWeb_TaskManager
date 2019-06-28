@@ -10,8 +10,11 @@ import java.util.Date;
 public class SessionDTO {
 
     private String id;
+
     private String userId;
+
     private String signature;
+
     private Date dateCreate;
 
     public SessionDTO() {

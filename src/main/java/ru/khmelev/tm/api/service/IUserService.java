@@ -11,23 +11,30 @@ public interface IUserService extends UserDetailsService {
 
     void createUser(@NotNull final String id, @NotNull final UserDTO userDTO);
 
-    @Nullable UserDTO findUser(@NotNull final String id);
+    @Nullable
+    UserDTO findUser(@NotNull final String id);
 
-    @NotNull Collection<UserDTO> findAll();
+    @NotNull
+    Collection<UserDTO> findAll();
 
-    @Nullable UserDTO findByLogin(@NotNull String login);
+    @Nullable
+    UserDTO findByLogin(@NotNull String login);
 
     void editUser(@NotNull final String id, @NotNull final UserDTO userDTO);
 
     void removeUser(@NotNull final String id);
 
-    @NotNull String getId(@NotNull final UserDTO user);
+    @NotNull
+    String getId(@NotNull final UserDTO user);
 
-    @NotNull String getName(@NotNull final UserDTO user);
+    @NotNull
+    String getName(@NotNull final UserDTO user);
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 
-    @Nullable UserDTO getUserFromSession(@NotNull final String userId);
+    @Nullable
+    UserDTO getUserFromSession(@NotNull final String userId);
 
-    @Nullable UserDTO userLogin(@NotNull String login, @NotNull String pass);
+    @Nullable
+    UserDTO userLogin(@NotNull String login, @NotNull String pass);
 }

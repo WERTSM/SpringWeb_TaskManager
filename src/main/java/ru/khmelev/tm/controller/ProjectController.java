@@ -7,14 +7,15 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.enumeration.Status;
+import ru.khmelev.tm.util.ViewScope;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -23,8 +24,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ManagedBean
-@ViewScoped
+@Component
+@Scope(ViewScope.NAME)
 @URLMappings(
         mappings = {
                 @URLMapping(id = "projectList", pattern = "/projectList", viewId = "/WEB-INF/views/project/project-list.xhtml"),
@@ -33,22 +34,26 @@ import java.util.UUID;
         })
 public class ProjectController extends SpringBeanAutowiringSupport {
 
-    String id;
+    private String id;
+
     @Autowired
-    private
-    IProjectService projectService;
+    private IProjectService projectService;
+
     @Autowired
     private IUserService userService;
+
     @NotNull
     private ProjectDTO projectDTO = new ProjectDTO();
+
     @NotNull
     private FacesContext facesContext = FacesContext.getCurrentInstance();
+
     @NotNull
     private HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+
     @NotNull
 
-    private
-    String userId = (String) session.getAttribute("userId");
+    private String userId = (String) session.getAttribute("userId");
 
     public List<ProjectDTO> projectList() {
         return (List<ProjectDTO>) projectService.findAll(userId);
@@ -63,6 +68,7 @@ public class ProjectController extends SpringBeanAutowiringSupport {
     }
 
     public String projectCreate() {
+        System.out.println(projectDTO.getName());
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setDateCreate(new Date());
         projectDTO.setStatus(Status.INPROGRESS);

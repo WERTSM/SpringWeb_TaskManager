@@ -1,6 +1,5 @@
 package ru.khmelev.tm.service;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,13 @@ import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
-@NoArgsConstructor
 public class UserService implements IUserService {
 
     @Autowired

@@ -10,34 +10,37 @@
 </h:head>
 <h:body>
     <f:view>
-        <h:form>
+        <form action="/SpringSecurity" method="post">
             <p:panel header="АУТЕНТИФИКАЦИЯ">
                 <p:outputPanel>
                     <p:outputLabel value="Укажите логин пользователя"/>
                 </p:outputPanel>
                 <p:outputPanel styleClass="ui-fluid">
-                    <p:inputText value="#{userController.login}"/>
+                    <input type="text" class="form-control" id="username" name="username"></input>
                 </p:outputPanel>
-                <p:spacer height="20"/>
-
+                <p:spacer height="15"/>
+                <p:outputPanel styleClass="ui-fluid">
+                </p:outputPanel>
                 <p:outputPanel>
                     <p:outputLabel value="Укажите пароль"/>
                 </p:outputPanel>
                 <p:outputPanel styleClass="ui-fluid">
-                    <p:inputText value="#{userController.password}"/>
+                    <input type="password" class="form-control" id="password" name="password"></input>
+                </p:outputPanel>
+                <p:spacer height="15"/>
+                <p:outputPanel styleClass="ui-fluid">
+                <button type="submit" class="btn btn-default">Залогиниться</button>
+                </p:outputPanel>
+                <p:spacer height="15"/>
+                <p:outputPanel>
+                    <p:spacer height="20"/>
+                    <p:button value="Регистрация"
+                              outcome="userRegistry"
+                              style="float:left"/>
                 </p:outputPanel>
             </p:panel>
-            <p:spacer height="20"/>
+        </form>
 
-            <p:outputPanel>
-                <p:commandButton value="Залогиниться"
-                                 action="#{userController.loginUser()}"/>
-                <p:spacer width="20"/>
-                <p:commandButton value="Регистрация"
-                                 action="user-registry"/>
-            </p:outputPanel>
-
-        </h:form>
     </f:view>
 </h:body>
 </html>

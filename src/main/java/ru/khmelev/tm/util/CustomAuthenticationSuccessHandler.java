@@ -27,9 +27,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         @Nullable final UserDTO userDTO = userService.findByLogin(login);
         if (userDTO != null) {
             request.getSession().setAttribute("userId", userDTO.getId());
+            System.out.println(userDTO.getId());
         }
-        if (!request.getHeader("referer").contains("login")) {
+        if (!request.getHeader("referer").contains("userLogin")) {
             response.sendRedirect(request.getHeader("referer"));
+            System.out.println("ПИЗДА"+request.getHeader("referer"));
         } else {
             response.sendRedirect(request.getContextPath() + "/projectList");
         }

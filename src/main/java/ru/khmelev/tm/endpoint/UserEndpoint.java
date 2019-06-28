@@ -3,6 +3,7 @@ package ru.khmelev.tm.endpoint;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
@@ -12,6 +13,7 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public class UserEndpoint implements IUserEndpoint {
 

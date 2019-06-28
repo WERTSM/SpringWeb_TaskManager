@@ -7,7 +7,10 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import ru.khmelev.tm.util.ViewScope;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.api.service.IUserService;
@@ -15,8 +18,6 @@ import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.dto.TaskDTO;
 import ru.khmelev.tm.enumeration.Status;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ManagedBean
-@ViewScoped
+@Component
+@Scope(ViewScope.NAME)
 @URLMappings(
         mappings = {
                 @URLMapping(id = "taskList", pattern = "/taskList", viewId = "/WEB-INF/views/task/task-list.xhtml"),

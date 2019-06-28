@@ -18,7 +18,7 @@
                             <p:outputLabel value="Название проекта:"/>
                         </p:outputPanel>
                         <p:selectOneMenu id="projectId" value="#{taskController.taskDTO.projectId}" effect="fold"
-                                         editable="true">
+                                         editable="false">
                             <f:selectItem itemLabel="Без проекта" itemValue=""/>
                             <f:selectItems value="#{taskController.projectList()}"
                                            var="projectDTO"

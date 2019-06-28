@@ -9,5 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Account {
     private String login;
+
     private String password;
 }

@@ -9,13 +9,13 @@
 <h:head>
     <title>#{title}</title>
     <p:tabMenu activeIndex="#{param.entity}">
-        <p:menuitem value="Проекты" outcome="project-list" icon="pi pi-star">
+        <p:menuitem value="Проекты" outcome="projectList" icon="pi pi-star">
             <f:param name="entity" value="1" hidding="true" />
         </p:menuitem>
-        <p:menuitem value="Задачи" outcome="task-list" icon="pi pi-search">
+        <p:menuitem value="Задачи" outcome="taskList" icon="pi pi-search">
             <f:param name="entity" value="2" hidding="true"/>
         </p:menuitem>
-        <p:menuitem value="Пользователь" outcome="user-page" icon="pi pi-search">
+        <p:menuitem value="Пользователь" outcome="userPage" icon="pi pi-search">
             <f:param name="entity" value="3" hidding="true"/>
         </p:menuitem>
     </p:tabMenu>

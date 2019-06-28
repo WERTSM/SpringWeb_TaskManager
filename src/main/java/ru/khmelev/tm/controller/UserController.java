@@ -7,14 +7,15 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import ru.khmelev.tm.util.ViewScope;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.enumeration.Role;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
@@ -22,30 +23,33 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ManagedBean
-@ViewScoped
+@Component
+@Scope(ViewScope.NAME)
 @URLMappings(
         mappings = {
                 @URLMapping(id = "userRegistry", pattern = "/userRegistry", viewId = "/WEB-INF/views/user/user-registry.xhtml"),
                 @URLMapping(id = "userPage", pattern = "/userPage", viewId = "/WEB-INF/views/user/user-page.xhtml"),
                 @URLMapping(id = "userLogin", pattern = "/userLogin", viewId = "/WEB-INF/views/user/user-login.xhtml"),
-                @URLMapping(id = "userEdit", pattern = "/userEdit", viewId = "/WEB-INF/views/user/user-edit.xhtml"),
-                @URLMapping(id = "login", pattern = "/login", viewId = "/WEB-INF/views/customLoginHTML.html"),
+                @URLMapping(id = "userEdit", pattern = "/userEdit", viewId = "/WEB-INF/views/user/user-edit.xhtml")
         })
 public class UserController extends SpringBeanAutowiringSupport {
 
-    @NotNull
-    UserDTO userDTO = new UserDTO();
     @Autowired
     private IUserService userService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @NotNull
+    private UserDTO userDTO = new UserDTO();
+
     private String login;
+
     private String password;
+
     @NotNull
     private FacesContext facesContext = FacesContext.getCurrentInstance();
+
     @NotNull
     private HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
 
@@ -84,6 +88,7 @@ public class UserController extends SpringBeanAutowiringSupport {
     }
 
     public String registration() {
+        System.out.println("!!!!!!!!!!!!" + login);
         if (!login.isEmpty() && !password.isEmpty()) {
             @NotNull final UserDTO newUserDTO = new UserDTO();
             newUserDTO.setId(UUID.randomUUID().toString());

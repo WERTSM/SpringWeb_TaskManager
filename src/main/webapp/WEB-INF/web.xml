@@ -26,16 +26,6 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
         <welcome-file>/WEB-INF/views/index.xhtml</welcome-file>
     </welcome-file-list>
 
-    <context-param>
-        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>primefaces.FONT_AWESOME</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
     <servlet>
         <servlet-name>CXFServlet</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>

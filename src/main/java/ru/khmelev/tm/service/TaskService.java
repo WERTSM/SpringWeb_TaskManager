@@ -1,6 +1,5 @@
 package ru.khmelev.tm.service;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import java.util.*;
 
 @Service
 @Transactional
-@NoArgsConstructor
 public class TaskService implements ITaskService {
 
     @Autowired

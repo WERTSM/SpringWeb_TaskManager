@@ -5,6 +5,7 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.dto.ProjectDTO;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
-
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IProjectEndpoint")
 public class ProjectEndpoint implements IProjectEndpoint {
 

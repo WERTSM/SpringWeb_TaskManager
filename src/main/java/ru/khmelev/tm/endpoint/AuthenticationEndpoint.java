@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IAuthenticationEndpoint;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
@@ -20,6 +21,7 @@ import javax.jws.WebService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IAuthenticationEndpoint")
 public class AuthenticationEndpoint implements IAuthenticationEndpoint {
 
@@ -35,7 +37,6 @@ public class AuthenticationEndpoint implements IAuthenticationEndpoint {
             @WebParam(name = "login") @NotNull final String login,
             @WebParam(name = "password") @NotNull final String pass
     ) {
-
         try {
             final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login, pass);
 
@@ -51,6 +52,7 @@ public class AuthenticationEndpoint implements IAuthenticationEndpoint {
                 session.setAttribute("userId", userDTO.getId());
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new RuntimeException("Authentication failed for: " + login, ex);
         }
         return true;
